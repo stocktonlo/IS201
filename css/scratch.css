@@ -1,0 +1,124 @@
+body {
+    background-color: #F5DEB3;
+    font-family: sans-serif;
+    color: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.not-center {
+    text-align: left;
+    margin: 10 auto;
+    padding-left: 10px;
+}
+
+ul, ol {
+    padding-left: 20px;  /* Adjust this value as needed */
+    margin: 0;           /* Remove default margin */
+}
+
+li {
+    margin: 5;           /* Remove default margin */
+    padding-left: 5px;   /* Adjust this value to bring text closer to the bullet/number */
+    list-style-position: inside;  /* Ensure bullets/numbers are inside the padding */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;  /* Aspect ratio of 16:9 */
+    height: 0;
+    overflow: hidden;
+    max-width: 80%;
+    margin: 0 auto 10px auto;  /* Center horizontally */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;        /* Responsive width */
+    height: 100%;       /* Responsive height */
+    border: 0;          /* Optional: Removes border */
+}
+
+.center {
+    text-align: center;
+}
+
+.italicizesmaller {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.common {
+    border: 2px solid black;
+    position: absolute;
+}
+
+.common2 {
+    border: 2px solid #F5DEB3;
+    position: absolute !important;
+}
+
+.header {
+    top: 5px;
+    left: 122px;
+    right: 122px;
+    height: 100px;
+    z-index: 2;
+    border: solid 2px #555555;
+}
+
+.leftmenu {
+    top: 5px;
+    left: 5px;
+    width: 110px;
+    bottom: 5px;
+    z-index: 1;
+    padding-top: 40px;
+    border: solid 2px #555555;
+    position: fixed;
+    padding-left: 5px;
+}
+
+.mainbody {
+    top: 114px;
+    right: 124px;
+    left: 124px;
+    bottom: 39px;
+    border: 2px #F5DEB3;
+}
+
+.rightmenu {
+    top: 5px;
+    right: 5px;
+    width: 110px;
+    bottom: 5px;
+    border: solid 2px #555555;
+    padding-left: 5px;
+    position: fixed;
+}
+
+.footer {
+    bottom: 5px;
+    left: 124px;
+    right: 124px;
+    height: 25px;
+    font-size: 8px;
+    color: #999999;
+    text-align: center;
+    padding-top: 15px;
+    position: fixed;
+}

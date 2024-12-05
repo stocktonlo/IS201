@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflex Test Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: white;
+            color: red;
+        }
+
+        h1 {
+            margin: 10px 0;
+        }
+
+        #game-info {
+            display: flex;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 400px;
+            margin-bottom: 10px;
+        }
+
+        #timer, #record, #score {
+            font-size: 18px;
+            margin: 0 10px;
+        }
+
+        #circle {
+            position: absolute;
+            background-color: red;
+            border-radius: 50%;
+            display: none;
+            cursor: pointer;
+        }
+
+        #game-container {
+            position: relative;
+            width: 90%;
+            height: 70vh;
+            border: 2px solid #333;
+            overflow: hidden;
+            background-color: black;
+        }
+
+        #start-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #start-button:hover {
+            background-color: #0056b3;
+        }
+
+        #scratch-link {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 16px;
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #scratch-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <a id="scratch-link" href="scratch.html">Back to Scratch Page</a>
+    <h1>Reflex Test Game</h1>
+    <div id="game-info">
+        <div id="score">Score: 0</div>
+        <div id="timer">Time: 30</div>
+        <div id="record">Record: 0</div>
+    </div>
+    <button id="start-button">Start Game</button>
+    <div id="game-container">
+        <div id="circle"></div>
+    </div>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const circle = document.getElementById('circle');
+        const gameContainer = document.getElementById('game-container');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const recordDisplay = document.getElementById('record');
+
+        let score = 0;
+        let gameActive = false;
+        let timer;
+        let countdown;
+        let timeLeft = 30;
+        let record = 0;
+
+        function getRandomPosition() {
+            const containerRect = gameContainer.getBoundingClientRect();
+            const maxX = containerRect.width - circle.offsetWidth;
+            const maxY = containerRect.height - circle.offsetHeight;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            return { x: randomX, y: randomY };
+        }
+
+        function getRandomSize() {
+            const minSize = 30; // Minimum size of the circle
+            const maxSize = 70; // Maximum size of the circle
+            const randomSize = Math.random() * (maxSize - minSize) + minSize;
+            return randomSize;
+        }
+
+        function showCircle() {
+            const position = getRandomPosition();
+            const size = getRandomSize();
+
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+            circle.style.left = `${position.x}px`;
+            circle.style.top = `${position.y}px`;
+            circle.style.display = 'block';
+        }
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = `Time: ${timeLeft}`;
+        }
+
+        function startGame() {
+            score = 0;
+            timeLeft = 30;
+            scoreDisplay.textContent = `Score: ${score}`;
+            updateTimerDisplay();
+            gameActive = true;
+            startButton.disabled = true;
+            circle.style.display = 'none';
+
+            // Show the first circle
+            showCircle();
+
+            // Start countdown timer
+            countdown = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                }
+            }, 1000);
+
+            // End game after 30 seconds
+            timer = setTimeout(endGame, 30000);
+        }
+
+        function handleCircleClick() {
+            if (!gameActive) return;
+
+            score++;
+            scoreDisplay.textContent = `Score: ${score}`;
+            showCircle();
+        }
+
+        function endGame() {
+            gameActive = false;
+            circle.style.display = 'none';
+
+            // Update record if score is higher
+            if (score > record) {
+                record = score;
+                recordDisplay.textContent = `Record: ${record}`;
+            }
+
+            alert(`Time's up! You clicked the circle ${score} times.`);
+            startButton.disabled = false;
+        }
+
+        startButton.addEventListener('click', startGame);
+        circle.addEventListener('click', handleCircleClick);
+    </script>
+</body>
+</html>
